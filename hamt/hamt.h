@@ -28,4 +28,9 @@ int find_hamt(HAMT * H, const void * key, void ** buf);
 
 int remove_hamt(HAMT * H, const void * key, void ** buffer);
 
+int size_hamt(HAMT * H);
+
+int clear_hamt(HAMT * H);
+
+int free_hamt(HAMT * H);
 #endif
