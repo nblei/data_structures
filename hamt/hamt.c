@@ -364,7 +364,10 @@ int remove_hamt(HAMT * H, const void * key, void ** buffer)
 
         int hash = s->info.hash(key);
         int rv = _remove_hamt(s, s->root, hash, 0, key, buffer);
-        return rv;
+        if (rv == HAMT_REMOVECLEAR || rv == HAMT_REMOVENOCLEAR)
+                return 1;
+        else
+                return 0;
 }
 
 int clear_hamt(HAMT *H)
