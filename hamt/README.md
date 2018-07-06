@@ -21,12 +21,12 @@ struct hamtinfo {
                                                 // Compares two keys.
                                                 // Returns 0 if they are the same.
 };
-```
 
-+ HAMT * init_hamt(struct hamtinfo * info)
-+ int insert_hamt(HAMT * H, void * key, void * val)
-+ int find_hamt(HAMT * H, const void * key, void ** buf)
-+ int remove_hamt(HAMT * H, const void * key, void ** buffer)
-+ unsigned int size_hamt(HAMT * H)
-+ int clear_hamt(HAMT * H)
-+ int free_hamt(HAMT * H)
+HAMT * init_hamt(struct hamtinfo * info)
+int insert_hamt(HAMT * H, void * key, void * val)
+int find_hamt(HAMT * H, const void * key, void ** buf)
+int remove_hamt(HAMT * H, const void * key, void ** buffer)
+unsigned int size_hamt(HAMT * H)
+int clear_hamt(HAMT * H)
+int free_hamt(HAMT * H)
+```
