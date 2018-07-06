@@ -67,7 +67,7 @@ HAMT * init_hamt(struct hamtinfo * info)
 
         hamt_s * rv = (hamt_s*)calloc(1, sizeof(*rv));
         if (rv == NULL) return NULL;
-        rv->root = (hamt_n *)calloc(1, sizeof(*(rv->root)));
+        rv->root = _create_hamt_node();
         if (rv->root == NULL) {
                 free(rv);
                 return NULL;
@@ -222,7 +222,7 @@ int find_hamt(HAMT * H, const void * key, void **buf)
         return _find_hamt(s, s->root, hash, key, buf);
 }
 
-int size_hamt(HAMT * H)
+unsigned int size_hamt(HAMT * H)
 {
         hamt_s * s = (hamt_s *)H;
         if (s->valid != HAMT_VALID) {
@@ -365,4 +365,17 @@ int remove_hamt(HAMT * H, const void * key, void ** buffer)
         int hash = s->info.hash(key);
         int rv = _remove_hamt(s, s->root, hash, 0, key, buffer);
         return rv;
+}
+
+int clear_hamt(HAMT *H)
+{
+        hamt_s * s = (hamt_s *)H;
+        if (s->valid != HAMT_VALID) {
+                errno = EINVAL;
+                return -1;
+        }
+
+        _free_hamt_nodes(s, s->root);
+        s->root = _create_hamt_node();
+        return 0;
 }

@@ -29,7 +29,7 @@ int main(void)
         };
         HAMT * h = init_hamt(&info);
 
-        int pows = 16;
+        int pows = 4;
         char buffer[20];
         for (volatile int i = 0; i < (1 << pows); ++i) {
                 sprintf(buffer, "%d", i);
@@ -47,7 +47,7 @@ int main(void)
                 }
         }
 
-
+        //clear_hamt(h);
         printf("size after remove: %d\n", size_hamt(h));
 
         free_hamt(h);
