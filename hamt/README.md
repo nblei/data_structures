@@ -8,6 +8,7 @@ Supports
 
 Interface
 
+```C
 struct hamtinfo {
         int key_size;
         int elem_size;
@@ -20,6 +21,7 @@ struct hamtinfo {
                                                 // Compares two keys.
                                                 // Returns 0 if they are the same.
 };
+```
 
 + HAMT * init_hamt(struct hamtinfo * info)
 + int insert_hamt(HAMT * H, void * key, void * val)
