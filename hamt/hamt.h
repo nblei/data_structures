@@ -79,5 +79,10 @@ unsigned int size_hamt(HAMT * H);
  **/
 int clear_hamt(HAMT * H);
 
+/**
+ * @description: Frees all memory associated with HAMT 'H'
+ * @param H: The HAMT to free
+ * @return: 0 on success, -1 on failure (sets errno)
+ **/
 int free_hamt(HAMT * H);
 #endif
