@@ -15,13 +15,15 @@ int free_str(void * str);
 int comp_str(const void * a, const void *b); 
 int string_int_test(int pows);
 int int_int_test(int pows);
+int string_string_test(int pows);
 
 
 int main(void)
 {
         
-        string_int_test(20);
-        int_int_test(16);
+        string_int_test(10);
+        int_int_test(10);
+        string_string_test(10);
         exit(EXIT_SUCCESS);
 }
 
@@ -107,6 +109,49 @@ int string_int_test(int pows)
                 uintptr_t buf = -1;
                 remove_hamt(h, (void*)buffer, (void**)&buf);
                 assert((int)buf == i);
+        }
+
+        assert(size_hamt(h) == 0);
+        free_hamt(h);
+        printf("Test Successfull\n\n");
+        return 0;
+}
+
+int string_string_test(int pows)
+{
+        printf("Beginning test\n\tKey: char *\n\tValue: char *\n\t"
+                "Max Size: %d\n", 1 << pows);
+        struct hamtinfo info = {
+                .key_size = sizeof( char *),
+                .elem_size = sizeof( char * ),
+                .hash = hash_str,
+                .copy_elem = copy_str,
+                .free_elem = free_str,
+                .copy_key = copy_str,
+                .free_key = free_str,
+                .cmp_key = comp_str
+        };
+        HAMT * h = init_hamt(&info);
+        assert(h);
+
+        char key_buffer[20];
+        char val_buffer[20];
+        for (volatile int i = 0; i < (1 << pows); ++i) {
+                sprintf(key_buffer, "%d", i);
+                sprintf(val_buffer, "%d", (3 * i));
+                insert_hamt(h, (void*)key_buffer, (void*)val_buffer);
+        }
+
+        assert(size_hamt(h) == 1 << pows);
+
+        char * vbuf = NULL;
+        for (volatile int i = 0; i < (1 << pows); ++i) {
+                sprintf(key_buffer, "%d", i);
+                remove_hamt(h, (void*)key_buffer, (void**)&vbuf);
+                int check = atoi(vbuf);
+                assert(check == (3 * i));
+                free(vbuf);
+                vbuf = NULL;
         }
 
         assert(size_hamt(h) == 0);
