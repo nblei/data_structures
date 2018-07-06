@@ -1,12 +1,15 @@
 ## Hash Array Mapped Trie (HAMT)
 
-Supports
+A generic implementation of a Hash Array Mapped Trie in C
+
+
+#Supports
 
 + Generic types for keys and values
 + User specified hashing function
 + Collision handling
 
-Interface
+#Interface
 
 ```C
 struct hamtinfo {
