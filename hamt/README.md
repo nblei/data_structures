@@ -48,3 +48,7 @@ unsigned int size_hamt(HAMT * H)
 int clear_hamt(HAMT * H)
 int free_hamt(HAMT * H)
 ```
+
+### TODO
++ Secondary hash for non-linked-list based hash-collision avoidance
++ Dynamically allocated memory for children pointers, rather than always allocating a 32-pointer array
