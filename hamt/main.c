@@ -21,9 +21,9 @@ int string_string_test(int pows);
 int main(void)
 {
         
-        string_int_test(10);
+        string_int_test(20);
         int_int_test(10);
-        string_string_test(10);
+        string_string_test(20);
         exit(EXIT_SUCCESS);
 }
 
@@ -137,7 +137,7 @@ int string_string_test(int pows)
         char key_buffer[20];
         char val_buffer[20];
         for (volatile int i = 0; i < (1 << pows); ++i) {
-                sprintf(key_buffer, "%d", i);
+                sprintf(key_buffer, "%d", (i << 22) + (i << 11));
                 sprintf(val_buffer, "%d", (3 * i));
                 insert_hamt(h, (void*)key_buffer, (void*)val_buffer);
         }
@@ -146,7 +146,7 @@ int string_string_test(int pows)
 
         char * vbuf = NULL;
         for (volatile int i = 0; i < (1 << pows); ++i) {
-                sprintf(key_buffer, "%d", i);
+                sprintf(key_buffer, "%d", (i << 22) + (i << 11));
                 remove_hamt(h, (void*)key_buffer, (void**)&vbuf);
                 int check = atoi(vbuf);
                 assert(check == (3 * i));

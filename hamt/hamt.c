@@ -165,6 +165,7 @@ int _find_hamt_list(hamt_s * s, hamt_n * node, const void * key, void ** buf)
 {
         if (node == NULL) {
                 fprintf(stderr, "Node is NULL at line: %d\n", __LINE__);
+                return 0;
         }
         struct hamt_list * it = node->values;
         while (it) {
